@@ -7,7 +7,6 @@ fprintf(handle, 'height: %d\n', size(raw, 1));
 fprintf(handle, 'type:   %s\n', class(raw(1,1)));
 fprintf(handle, 'minimum pixel: %d\n', min(raw(:)));
 fprintf(handle, 'maximum pixel: %d\n', max(raw(:)));
-fclose(handle);
 
 % Display raw image, then cast to double
 % imshow(raw);
@@ -39,19 +38,36 @@ im_zoom = im_linear(1000:1099, 901:1000);
 im_zoom = im_zoom * 5;
 im_zoom(im_zoom > 1) = 1;
 
-imshow(im_zoom, 'InitialMagnification', 500);
-title('bayer mosaic');
+% imshow(im_zoom, 'InitialMagnification', 500);
+% title('bayer mosaic');
 imwrite(im_zoom, 'zoomed.jpg')
 
 fprintf('Program paused. Press enter to continue.\n');
 % pause;
 
 % extract bayer data
-top_left = im_linear(1:end/2, 1:end/2);
-top_right = im_linear(1:end/2, end/2:end);
-bottom_left = im_linear(end/2:end, 1:end/2);
-bottom_right = im_linear(end/2:end, end/2:end);
+top_left = im_linear(1:2:end, 1:2:end);  % blue
+top_right = im_linear(2:2:end, 1:2:end); % green
+bot_left = im_linear(1:2:end, 2:2:end);  % green
+bot_right = im_linear(2:2:end, 2:2:end); % red
+
+im_bggr = 4 * cat(3, top_left, (top_right + bot_left) / 2, bot_right);
+im_rggb = 4 * cat(3, bot_right, (top_right + bot_left) / 2, top_left);
+im_grbg = 4 * cat(3, top_right, (top_left + bot_right) / 2, bot_left); 
+im_gbrg = 4 * cat(3, bot_left, (top_left + bot_right) / 2, top_right);
+
+subplot(2,2,1);
+imshow(im_bggr);
+subplot(2,2,2);
+imshow(im_rggb);
+subplot(2,2,3);
+imshow(im_grbg);
+subplot(2,2,4);
+imshow(im_gbrg);
+
+imwrite(im_rggb, 'best_bayer.jpg')
+fprintf(handle, 'best bayer mosaic: rggb\n');
+fclose(handle);
 
 fprintf('Program paused. Press enter to continue.\n');
 % pause;
-
