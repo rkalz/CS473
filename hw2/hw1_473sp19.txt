@@ -1,5 +1,5 @@
-width: 1419
-height: 1001
-type: uint8
-minimum pixel: 0
-maximum pixel: 255
+width:  4290
+height: 2856
+type:   uint16
+minimum pixel: 2002
+maximum pixel: 15303
