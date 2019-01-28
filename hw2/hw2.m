@@ -68,10 +68,10 @@ title('GBRG');
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
-imwrite(im_bggr, 'best_bayer.jpg');
-imshow(im_bggr);
-title('best mosaic - BGGR');
-fprintf(handle, 'best bayer mosaic: bggr\n');
+imwrite(im_rggb, 'best_bayer.jpg');
+imshow(im_rggb);
+title('best mosaic - RGGB');
+fprintf(handle, 'best bayer mosaic: rggb\n');
 fclose(handle);
 
 fprintf('Program paused. Press enter to continue.\n');

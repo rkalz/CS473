@@ -3,4 +3,4 @@ height: 2856
 type:   uint16
 minimum pixel: 2002
 maximum pixel: 15303
-best bayer mosaic: bggr
+best bayer mosaic: rggb
