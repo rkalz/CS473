@@ -1,7 +1,7 @@
 raw = imread('raw.tiff');
 
 % Write data about tiff to file
-handle = fopen('hw1_473sp19.txt','w');
+handle = fopen('hw2_473sp19.txt','w');
 fprintf(handle, 'width:  %d\n', size(raw, 2));
 fprintf(handle, 'height: %d\n', size(raw, 1));
 fprintf(handle, 'type:   %s\n', class(raw(1,1)));
@@ -13,7 +13,7 @@ imshow(raw);
 title('raw image');
 raw = double(raw);
 fprintf('Program paused. Press enter to continue.\n');
-   pause;
+pause;
 
 % linearization
 black_level = 2047;
@@ -43,13 +43,13 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 % extract bayer data
-top_left = im_linear(1:2:end, 1:2:end);  % blue
-top_right = im_linear(2:2:end, 1:2:end); % green
-bot_left = im_linear(1:2:end, 2:2:end);  % green
-bot_right = im_linear(2:2:end, 2:2:end); % red
+top_left = im_linear(1:2:end, 1:2:end); 
+top_right = im_linear(2:2:end, 1:2:end); 
+bot_left = im_linear(1:2:end, 2:2:end);  
+bot_right = im_linear(2:2:end, 2:2:end); 
 
-im_bggr = 4 * cat(3, top_left, (top_right + bot_left) / 2, bot_right);
-im_rggb = 4 * cat(3, bot_right, (top_right + bot_left) / 2, top_left);
+im_rggb = 4 * cat(3, top_left, (top_right + bot_left) / 2, bot_right);
+im_bggr = 4 * cat(3, bot_right, (top_right + bot_left) / 2, top_left);
 im_grbg = 4 * cat(3, top_right, (top_left + bot_right) / 2, bot_left); 
 im_gbrg = 4 * cat(3, bot_left, (top_left + bot_right) / 2, top_right);
 
