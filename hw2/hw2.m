@@ -44,8 +44,8 @@ pause;
 
 % extract bayer data
 top_left = im_linear(1:2:end, 1:2:end); 
-top_right = im_linear(2:2:end, 1:2:end); 
-bot_left = im_linear(1:2:end, 2:2:end);  
+bot_left = im_linear(2:2:end, 1:2:end); 
+top_right = im_linear(1:2:end, 2:2:end);  
 bot_right = im_linear(2:2:end, 2:2:end); 
 
 im_rggb = 4 * cat(3, top_left, (top_right + bot_left) / 2, bot_right);
