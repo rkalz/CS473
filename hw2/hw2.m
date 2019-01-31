@@ -1,3 +1,5 @@
+clear; clc;
+
 raw = imread('raw.tiff');
 
 % Write data about tiff to file
@@ -89,21 +91,26 @@ green_max = max(green_channel(:));
 blue_avg = mean(blue_channel, 'all');
 blue_max = max(blue_channel(:));
 
-grey_world_red_channel = red_channel * (green_avg / red_avg);
-grey_world_blue_channel = blue_channel * (green_avg / blue_avg);
-grey_world = 4 * cat(3, grey_world_red_channel, green_channel, ...
-    grey_world_blue_channel);
-imwrite(grey_world, 'grey_world.jpg');
+im_gray_world = im_linear;
+im_gray_world(1:2:end, 1:2:end) = ...
+    im_gray_world(1:2:end, 1:2:end) * (green_avg / red_avg);
+im_gray_world(2:2:end, 2:2:end) = ...
+    im_gray_world(2:2:end, 2:2:end) * (green_avg / blue_avg);
 
-white_world_red_channel = red_channel * (green_max / red_max);
-white_world_blue_channel = blue_channel * (green_max / blue_max);
-white_world = 4 * cat(3, white_world_red_channel, green_channel, ...
-    white_world_blue_channel);
-imwrite(white_world, 'white_world.jpg');
+im_white_world = im_linear;
+im_white_world(1:2:end, 1:2:end) = ...
+    im_white_world(1:2:end, 1:2:end) * (green_max / red_max);
+im_white_world(2:2:end, 2:2:end) = ...
+    im_white_world(2:2:end, 2:2:end) * (green_max / blue_max);
 
 subplot(2,1,1);
-imshow(grey_world);
-title('grey world');
+imshow(im_gray_world);
+title('gray world');
 subplot(2,1,2);
-imshow(white_world);
+imshow(im_white_world);
 title('white world');
+
+imwrite(im_gray_world, 'gray_world.jpg')
+imwrite(im_white_world, 'white_world.jpg')
+
+
