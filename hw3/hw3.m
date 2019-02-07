@@ -13,14 +13,14 @@ im2 = double(im2) / 255.;
 viz_freq (im1, im2); % find G1 and G2 interactively
 
 % choose G1 and G2 (and report to hw3_report.txt, you could do that by hand)
-
-% G1 =
-% G2 =
+G1 = 8;
+G2 = 8;
 
 % build and visualize the hybrid image
 [lo,hi,hybrid] = hybrid_image (im1, im2, G1, G2);
 
 % save the hybrid image (e.g., dog/cat pair in 'dog_cat.jpg')
+imwrite(hybrid, 'output/dog_cat.jpeg');
 
 % repeat for each image pair
 

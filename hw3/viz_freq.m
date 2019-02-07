@@ -19,8 +19,7 @@ for sig = 1:9
     % high pass - subtract low pass from image
     filter = fspecial('gaussian', [31 31], sig);
     low_pass = imfilter(img_hi, filter);
-    img = img_hi - low_pass;
-    img = img + 0.5;
+    img = (img_hi - low_pass) + 0.5;
     
     subplot(3,3,sig)
     imshow(img)

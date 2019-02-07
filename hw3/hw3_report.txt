@@ -1,0 +1,3 @@
+Dog and Cat
+G1 = 8
+G2 = 8
