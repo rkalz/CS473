@@ -27,6 +27,9 @@ subplot(3,2,5);
 imshow(im_hybrid);
 title('Hybrid');
 
+figure;
+imshow(im_hybrid);
+
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
