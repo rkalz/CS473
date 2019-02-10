@@ -17,3 +17,7 @@ G2 - 5
 Plane and Bird
 G1 - 7
 G2 - 4
+
+Custom Happy and Sour
+G1 - 5
+G2 - 9

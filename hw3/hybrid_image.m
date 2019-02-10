@@ -4,12 +4,12 @@ function [im1_lo, im2_hi, im_hybrid] = hybrid_image (im1, im2, G1, G2)
 % in a 3x2 grid, display the 2 original images (first row),
 % low-pass-filtered and high-pass filtered images (second row),
 % and hybrid image (3rd row)
-filter = fspecial('gaussian', [31 31], G1);
+filter = fspecial('gaussian', 31, G1);
 im1_lo = imfilter(im1, filter);
 
 if G1 ~= G2
-    % Compute other Gaussian filter if the G values aren't equal
-    filter = fspecial('gaussian', [31 31], G2);
+    % Compute other Gaussian filter only if sigmas are different
+    filter = fspecial('gaussian', 31, G2);
 end
 
 im2_hi = im2 - imfilter(im2, filter);
@@ -40,4 +40,3 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 return
-

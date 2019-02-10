@@ -4,12 +4,12 @@ clear; close all; clc
 
 % This program reads the images from the subdirectory 'image_pairs'
 % And writes the combinatuons to the subdirectory 'output'
-low_pass  = ["dog", "motorcycle", "marilyn", "submarine", "plane"];
-g1_vals   = [8    , 4           , 3        , 4          , 7      ];
-high_pass = ["cat", "bicycle"   , "albert",  "fish"     , "bird" ];
-g2_vals   = [8    , 3           , 4        , 5          , 4      ];
+low_pass  = ["dog", "motorcycle", "marilyn", "submarine", "plane", "happy"];
+g1_vals   = [8    , 4           , 3        , 4          , 7      , 5      ];
+high_pass = ["cat", "bicycle"   , "albert",  "fish"     , "bird" , "sour" ];
+g2_vals   = [8    , 3           , 4        , 5          , 4      , 9      ];
 
-for i = 1:5
+for i = 1:6
     low_pass_name = low_pass(i);
     high_pass_name = high_pass(i);
     

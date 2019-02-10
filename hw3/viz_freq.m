@@ -3,7 +3,7 @@ function viz_freq (img_lo, img_hi)
 % precompute the gaussian filters
 filters = zeros(31, 31, 9);
 for sig = 1:9
-    filters(:, :, sig) = fspecial('gaussian', [31 31], sig);
+    filters(:, :, sig) = fspecial('gaussian', 31, sig);
 end
 
 % display a 3x3 grid of the first image at progressively larger sigma
