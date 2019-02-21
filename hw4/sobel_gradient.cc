@@ -1,5 +1,5 @@
 //
-// Created by Rofael Aleezada on 2019-02-20.
+// Copyright 2019 <Rofael Aleezada>
 //
 
 #include "sobel_gradient.h"
@@ -14,7 +14,7 @@ cv::Mat sobel_gradient_magnitude(const cv::Mat& input) {
 
   for (int i = 0; i < input.rows; i++) {
     for (int j = 0; j < input.cols; j++) {
-      // TODO: Multithreading
+      // TODO(rofael): Multithreading
       auto gx = single_filter(input, sobel_x_filter, i, j);
       auto gy = single_filter(input, sobel_y_filter, i, j);
 

@@ -1,5 +1,5 @@
 //
-// Created by Rofael Aleezada on 2019-02-20.
+// Copyright 2019 <Rofael Aleezada>
 //
 
 #include "mat_math.h"
@@ -30,7 +30,7 @@ float single_filter(const cv::Mat& image, const cv::Mat& filter,
 
     for (int j = 0; j < filter.cols; j++) {
       int img_j = col + (j - mid_j);
-      
+
       if (img_j < 0) img_j = 0;
       if (img_j >= image.cols) img_j = image.cols - 1;
 

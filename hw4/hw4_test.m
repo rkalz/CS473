@@ -4,7 +4,7 @@ clear; clc;
 
 im_brick_wall = imread("brick_wall.jpg");
 im_brick_wall = double(rgb2gray(im_brick_wall)) / 255.;
-im_fed_center = imread("mies_van_der_rohe_chicago_federal_center.jpg");
+im_fed_center = imread("federal_center.jpg");
 im_fed_center = double(rgb2gray(im_fed_center)) / 255.;
 
 [bw_gx, bw_gy] = imgradientxy(im_brick_wall);

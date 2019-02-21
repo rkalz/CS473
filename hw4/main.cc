@@ -1,5 +1,5 @@
 //
-// Created by Rofael Aleezada on 2019-02-20.
+// Copyright 2019 <Rofael Aleezada>
 //
 
 #include <string>
@@ -15,18 +15,23 @@
 
 int main() {
   std::string project_dir = PROJECT_DIR;
-  auto image = load_image_as_grayscale_float(project_dir + "/brick_wall.jpg");
 
-  auto gmag = sobel_gradient_magnitude(image);
-  auto gdir = sobel_gradient_direction(image);
+  auto image_paths = {"/brick_wall.jpg", "/federal_center.jpg"};
 
-  cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
-  cv::imshow("Gradient Magnitude", gmag);
+  for (auto& path : image_paths) {
+    auto image = load_image_as_grayscale_float(project_dir + path);
 
-  cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
-  cv::imshow("Gradient Direction", gdir);
+    auto gmag = sobel_gradient_magnitude(image);
+    auto gdir = sobel_gradient_direction(image);
 
-  cv::waitKey(0);
+    cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
+    cv::imshow("Gradient Magnitude", gmag);
+
+    cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
+    cv::imshow("Gradient Direction", gdir);
+
+    cv::waitKey(0);
+  }
 
   return 0;
 }
