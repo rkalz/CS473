@@ -20,10 +20,12 @@ int main() {
   auto gmag = sobel_gradient_magnitude(image);
   auto gdir = sobel_gradient_direction(image);
 
-  cv::namedWindow("Gradient Magnitude", cv::WINDOW_AUTOSIZE);
-  cv::namedWindow("Gradient Direction", cv::WINDOW_AUTOSIZE);
+  cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
   cv::imshow("Gradient Magnitude", gmag);
+
+  cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
   cv::imshow("Gradient Direction", gdir);
+
   cv::waitKey(0);
 
   return 0;

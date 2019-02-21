@@ -15,26 +15,27 @@ cv::Mat load_image_as_grayscale_float(const std::string& filepath) {
   return float_gs_image;
 }
 
-float single_filter(const cv::Mat& input, const cv::Mat& kernel,
+float single_filter(const cv::Mat& image, const cv::Mat& filter,
                          int row, int col) {
   float result = 0.0f;
-  const int mid_i = kernel.rows / 2;
-  const int mid_j = kernel.cols / 2;
+  const int mid_i = filter.rows / 2;
+  const int mid_j = filter.cols / 2;
 
-  for (int i = 0; i < kernel.rows; i++) {
-    int input_i = row + (i - mid_i);
+  for (int i = 0; i < filter.rows; i++) {
+    int img_i = row + (i - mid_i);
 
     // imgradientxy.m:78 - Uses 'replicate' internally
-    if (input_i < 0) input_i = 0;
-    if (input_i >= input.rows) input_i = input.rows - 1;
+    if (img_i < 0) img_i = 0;
+    if (img_i >= image.rows) img_i = image.rows - 1;
 
-    for (int j = 0; j < kernel.cols; j++) {
-      int input_j = col + (j - mid_j);
-      if (input_j < 0) input_j = 0;
-      if (input_j >= input.cols) input_j = input.cols - 1;
+    for (int j = 0; j < filter.cols; j++) {
+      int img_j = col + (j - mid_j);
+      
+      if (img_j < 0) img_j = 0;
+      if (img_j >= image.cols) img_j = image.cols - 1;
 
-      result += input.at<float>(input_i, input_j) *
-          kernel.at<float>(i, j);
+      result += image.at<float>(img_i, img_j) *
+          filter.at<float>(i, j);
     }
   }
 
