@@ -11,9 +11,9 @@ im_fed_center = double(rgb2gray(im_fed_center)) / 255.;
 [bw_mag, bw_dir] = imgradient(im_brick_wall);
 [fc_mag, fc_dir] = imgradient(im_fed_center);
 
-subplot(2, 2, 1); imshow(im_brick_wall);
-subplot(2, 2, 3); imshow(bw_mag);
-subplot(2, 2, 4); imshow(bw_dir);
+imshow(bw_mag);
+figure;
+imshow(bw_dir);
 
 figure;
 subplot(2, 2, 1); imshow(im_fed_center);

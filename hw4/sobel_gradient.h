@@ -10,6 +10,8 @@
 #include "mat_math.h"
 #include <iostream>
 
+#define PI 3.141592653f
+
 cv::Mat sobel_gradient_magnitude(const cv::Mat& input);
 cv::Mat sobel_gradient_direction(const cv::Mat& input);
 

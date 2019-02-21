@@ -14,14 +14,16 @@
 #endif
 
 int main() {
-  std::string path_to_image = PROJECT_DIR;
-  path_to_image += "/brick_wall.jpg";
-  auto image = load_image_as_grayscale_float(path_to_image);
+  std::string project_dir = PROJECT_DIR;
+  auto image = load_image_as_grayscale_float(project_dir + "/brick_wall.jpg");
 
   auto gmag = sobel_gradient_magnitude(image);
+  auto gdir = sobel_gradient_direction(image);
 
-  cv::namedWindow("Display Image", cv::WINDOW_AUTOSIZE);
-  cv::imshow("Display Image", gmag);
+  cv::namedWindow("Gradient Magnitude", cv::WINDOW_AUTOSIZE);
+  cv::namedWindow("Gradient Direction", cv::WINDOW_AUTOSIZE);
+  cv::imshow("Gradient Magnitude", gmag);
+  cv::imshow("Gradient Direction", gdir);
   cv::waitKey(0);
 
   return 0;

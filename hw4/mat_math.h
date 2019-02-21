@@ -11,7 +11,7 @@
 
 cv::Mat load_image_as_grayscale_float(const std::string& filepath);
 
-float single_convolution(const cv::Mat& input, const cv::Mat& kernel,
+float single_filter(const cv::Mat& input, const cv::Mat& kernel,
     int row, int col);
 
 #endif //HW4_MAT_MATH_H
