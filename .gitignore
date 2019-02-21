@@ -1,8 +1,11 @@
 *.m~
 *.tiff
 *.jpg
-.DS_Store
+*.DS_Store
 *.zip
 
 hw3/image_pairs/
 hw3/output/
+
+hw4/.idea/
+hw4/cmake-*
