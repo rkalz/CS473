@@ -5,10 +5,9 @@
 #ifndef HW4_SOBEL_GRADIENT_H_
 #define HW4_SOBEL_GRADIENT_H_
 
-#include <iostream>
-
-#include "mat_math.h"
 #include <opencv2/opencv.hpp>
+using cv::Mat;
+using cv::Sobel;
 
 #define PI 3.141592653f
 

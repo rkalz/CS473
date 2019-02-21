@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(OpenCV REQUIRED)
 add_definitions(-DPROJECT_DIR="${CMAKE_SOURCE_DIR}")
 
-add_executable(hw4 main.cc sobel_gradient.cc mat_math.cc)
+add_executable(hw4 main.cc sobel_gradient.cc mat_file.cc)
 target_link_libraries(hw4 ${OpenCV_LIBS} )
