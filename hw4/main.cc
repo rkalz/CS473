@@ -25,32 +25,35 @@ int main() {
   // Get magnitude and directon on custom image
   cv::Mat image = load_image_as_grayscale_float(project_dir + "/einstein.jpg");
 
-  cv::Mat gmag = sobel_gradient_magnitude(image);
-  cv::Mat gdir = sobel_gradient_direction(image);
+  cv::Mat g_mag = sobel_gradient_magnitude(image);
+  cv::Mat g_dir = sobel_gradient_direction(image);
 
-  //cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
-  //cv::imshow("Gradient Magnitude", gmag);
+  // cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
+  // cv::imshow("Gradient Magnitude", g_mag);
 
-  //cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
-  //cv::imshow("Gradient Direction", gdir);
+  // cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
+  // cv::imshow("Gradient Direction", g_dir);
 
-  //cv::waitKey(0);
+  // cv::waitKey(0);
 
-  write_cv_32f_image(project_dir + "/einstein_gmag.jpg", gmag);
-  write_cv_32f_image(project_dir + "/einstein_gdir.jpg", gdir);
+  write_cv_32f_image(project_dir + "/einstein_gmag.jpg", g_mag);
+  write_cv_32f_image(project_dir + "/einstein_gdir.jpg", g_dir);
 
   // Find edges for provided images
-  auto image_names = {"brick_wall", "federal_center"};
-  for (auto& name : image_names) {
-    image = load_image_as_grayscale_float(project_dir + "/" + name + ".jpg");
+  const char* image_names[] = {"/brick_wall", "/federal_center"};
+  float image_thresh[] = {0.275f, 0.1f};
 
-    cv::Mat edges = sobel_find_edges(image, 0.5f);
+  for (int i = 0; i < 2; i++) {
+    image =
+        load_image_as_grayscale_float(project_dir + image_names[i] + ".jpg");
 
-    cv::namedWindow("Gradient Edges", cv::WINDOW_NORMAL);
-    cv::imshow("Gradient Edges", edges);
-    cv::waitKey(0);
+    cv::Mat im_edges = sobel_find_edges(image, image_thresh[i]);
 
-    write_cv_32f_image(project_dir + "/" + name + "_edges.jpg", edges);
+    // cv::namedWindow("Gradient Edges", cv::WINDOW_NORMAL);
+    // cv::imshow("Gradient Edges", im_edges);
+    // cv::waitKey(0);
+
+    write_cv_32f_image(project_dir + image_names[i] + "_edges.jpg", im_edges);
   }
 
   cv::destroyAllWindows();

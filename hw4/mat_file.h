@@ -15,6 +15,6 @@ using cv::imwrite;
 
 cv::Mat load_image_as_grayscale_float(const std::string& filepath);
 
-void write_cv_32f_image(const std::string& filepath, cv::Mat& image);
+void write_cv_32f_image(const std::string& filepath, const cv::Mat& image);
 
-#endif //HW4_MAT_FILE_H_
+#endif  // HW4_MAT_FILE_H_

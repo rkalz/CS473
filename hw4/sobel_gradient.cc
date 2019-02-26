@@ -5,7 +5,7 @@
 #include "sobel_gradient.h"
 
 cv::Mat sobel_gradient_magnitude(const cv::Mat& input) {
-  cv::Mat gmag(input.rows, input.cols, input.type());
+  cv::Mat g_mag(input.rows, input.cols, input.type());
 
   cv::Mat x_der, y_der;
   cv::Sobel(input, x_der, CV_32F, 1, 0);
@@ -16,17 +16,17 @@ cv::Mat sobel_gradient_magnitude(const cv::Mat& input) {
       float gx = x_der.at<float>(i, j);
       float gy = y_der.at<float>(i, j);
 
-      float val = sqrtf(gx * gx + gy * gy);
-      gmag.at<float>(i, j) = val;
+      float val = std::sqrtf(gx * gx + gy * gy);
+      g_mag.at<float>(i, j) = val;
     }
   }
 
-  cv::normalize(gmag, gmag, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
-  return gmag;
+  cv::normalize(g_mag, g_mag, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
+  return g_mag;
 }
 
 cv::Mat sobel_gradient_direction(const cv::Mat& input) {
-  cv::Mat gdir(input.rows, input.cols, input.type());
+  cv::Mat g_dir(input.rows, input.cols, input.type());
 
   cv::Mat x_der, y_der;
   cv::Sobel(input, x_der, CV_32F, 1, 0);
@@ -39,22 +39,22 @@ cv::Mat sobel_gradient_direction(const cv::Mat& input) {
 
       // imgradient.m:127 - gy is negated
       // lock to [0,1] to fix weird inverse shading
-      float val = atan2(-gy, gx);
-      gdir.at<float>(i, j) = val;
+      float val = std::atan2(-gy, gx);
+      g_dir.at<float>(i, j) = val;
     }
   }
 
-  cv::normalize(gdir, gdir, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
-  return gdir;
+  cv::normalize(g_dir, g_dir, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
+  return g_dir;
 }
 
-cv::Mat sobel_find_edges(const cv::Mat& images, float threshold) {
-  auto gmag = sobel_gradient_magnitude(images);
-  cv::Mat im_edges(gmag.rows, gmag.cols, gmag.type());
+cv::Mat sobel_find_edges(const cv::Mat& image, float threshold) {
+  auto g_mag = sobel_gradient_magnitude(image);
+  cv::Mat im_edges(g_mag.rows, g_mag.cols, g_mag.type());
 
-  for (int i = 0; i < gmag.rows; i++) {
-    for (int j = 0; j < gmag.cols; j++) {
-      if (gmag.at<float>(i,j) >= threshold) {
+  for (int i = 0; i < g_mag.rows; i++) {
+    for (int j = 0; j < g_mag.cols; j++) {
+      if (g_mag.at<float>(i, j) >= threshold) {
         im_edges.at<float>(i, j) = 1.0f;
       } else {
         im_edges.at<float>(i, j) = 0.0f;
