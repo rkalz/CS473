@@ -21,6 +21,7 @@ cv::Mat sobel_gradient_magnitude(const cv::Mat& input) {
     }
   }
 
+  cv::normalize(gmag, gmag, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
   return gmag;
 }
 
@@ -38,11 +39,29 @@ cv::Mat sobel_gradient_direction(const cv::Mat& input) {
 
       // imgradient.m:127 - gy is negated
       // lock to [0,1] to fix weird inverse shading
-      float val = (atan2(-gy, gx) + PI) / (2.0f * PI);
+      float val = atan2(-gy, gx);
       gdir.at<float>(i, j) = val;
     }
   }
 
+  cv::normalize(gdir, gdir, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
   return gdir;
+}
+
+cv::Mat sobel_find_edges(const cv::Mat& images, float threshold) {
+  auto gmag = sobel_gradient_magnitude(images);
+  cv::Mat im_edges(gmag.rows, gmag.cols, gmag.type());
+
+  for (int i = 0; i < gmag.rows; i++) {
+    for (int j = 0; j < gmag.cols; j++) {
+      if (gmag.at<float>(i,j) >= threshold) {
+        im_edges.at<float>(i, j) = 1.0f;
+      } else {
+        im_edges.at<float>(i, j) = 0.0f;
+      }
+    }
+  }
+
+  return im_edges;
 }
 

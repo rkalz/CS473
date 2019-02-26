@@ -21,25 +21,36 @@ using cv::destroyAllWindows;
 
 int main() {
   std::string project_dir = PROJECT_DIR;
-  auto image_names = {"bham"};
 
+  // Get magnitude and directon on custom image
+  cv::Mat image = load_image_as_grayscale_float(project_dir + "/einstein.jpg");
+
+  cv::Mat gmag = sobel_gradient_magnitude(image);
+  cv::Mat gdir = sobel_gradient_direction(image);
+
+  //cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
+  //cv::imshow("Gradient Magnitude", gmag);
+
+  //cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
+  //cv::imshow("Gradient Direction", gdir);
+
+  //cv::waitKey(0);
+
+  write_cv_32f_image(project_dir + "/einstein_gmag.jpg", gmag);
+  write_cv_32f_image(project_dir + "/einstein_gdir.jpg", gdir);
+
+  // Find edges for provided images
+  auto image_names = {"brick_wall", "federal_center"};
   for (auto& name : image_names) {
-    cv::Mat image =
-        load_image_as_grayscale_float(project_dir + "/" + name + ".jpg");
+    image = load_image_as_grayscale_float(project_dir + "/" + name + ".jpg");
 
-    cv::Mat gmag = sobel_gradient_magnitude(image);
-    cv::Mat gdir = sobel_gradient_direction(image);
+    cv::Mat edges = sobel_find_edges(image, 0.5f);
 
-    cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
-    cv::imshow("Gradient Magnitude", gmag);
-
-    cv::namedWindow("Gradient Direction", cv::WINDOW_NORMAL);
-    cv::imshow("Gradient Direction", gdir);
-
+    cv::namedWindow("Gradient Edges", cv::WINDOW_NORMAL);
+    cv::imshow("Gradient Edges", edges);
     cv::waitKey(0);
 
-    write_cv_32f_image(project_dir + "/" + name + "_grad_mag.jpg", gmag);
-    write_cv_32f_image(project_dir + "/" + name + "_grad_dir.jpg", gdir);
+    write_cv_32f_image(project_dir + "/" + name + "_edges.jpg", edges);
   }
 
   cv::destroyAllWindows();

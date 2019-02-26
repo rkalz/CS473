@@ -9,9 +9,9 @@
 using cv::Mat;
 using cv::Sobel;
 
-#define PI 3.141592653f
-
 cv::Mat sobel_gradient_magnitude(const cv::Mat& input);
 cv::Mat sobel_gradient_direction(const cv::Mat& input);
+
+cv::Mat sobel_find_edges(const cv::Mat& gmag, float threshold);
 
 #endif  // HW4_SOBEL_GRADIENT_H_
