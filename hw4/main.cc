@@ -15,10 +15,6 @@ using cv::destroyAllWindows;
 #include "mat_file.h"
 #include "sobel_gradient.h"
 
-#ifndef PROJECT_DIR
-#define PROJECT_DIR ".."
-#endif
-
 int main() {
   std::string project_dir = PROJECT_DIR;
 
@@ -56,6 +52,8 @@ int main() {
     write_cv_32f_image(project_dir + image_names[i] + "_edges.jpg", im_edges);
   }
 
+  std::cout << "Program ran successfully. ";
+  std::cout << "Files written to executable directory." << std::endl;
   cv::destroyAllWindows();
 
   return 0;
