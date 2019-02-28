@@ -22,7 +22,7 @@ int main() {
   cv::Mat image = load_image_as_grayscale_float(project_dir + "/einstein.jpg");
 
   cv::Mat g_mag = sobel_gradient_magnitude(image);
-  cv::Mat g_dir = sobel_gradient_direction(image);
+  cv::Mat g_dir = sobel_gradient_direction(image, 0.0f, PI/18.0f); // 0d +- 10
 
   // cv::namedWindow("Gradient Magnitude", cv::WINDOW_NORMAL);
   // cv::imshow("Gradient Magnitude", g_mag);

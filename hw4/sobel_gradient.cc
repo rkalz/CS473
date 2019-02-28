@@ -25,8 +25,11 @@ cv::Mat sobel_gradient_magnitude(const cv::Mat& input) {
   return g_mag;
 }
 
-cv::Mat sobel_gradient_direction(const cv::Mat& input) {
+cv::Mat sobel_gradient_direction(const cv::Mat& input, float direction,
+    float threshold) {
   cv::Mat g_dir(input.rows, input.cols, input.type());
+  float min = ((direction - threshold) < -PI) ? -PI : direction - threshold;
+  float max = ((direction + threshold) > PI) ? PI : direction + threshold;
 
   cv::Mat x_der, y_der;
   cv::Sobel(input, x_der, CV_32F, 1, 0);
@@ -40,11 +43,11 @@ cv::Mat sobel_gradient_direction(const cv::Mat& input) {
       // imgradient.m:127 - gy is negated
       // lock to [0,1] to fix weird inverse shading
       float val = std::atan2(-gy, gx);
-      g_dir.at<float>(i, j) = val;
+      if (val >= min && val <= max) g_dir.at<float>(i, j) = 1.0f;
+      else g_dir.at<float>(i, j) = 0.0f;
     }
   }
 
-  cv::normalize(g_dir, g_dir, 0.0f, 1.0f, cv::NORM_MINMAX, CV_32F);
   return g_dir;
 }
 
